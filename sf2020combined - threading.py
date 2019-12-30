@@ -38,20 +38,20 @@ def hit_test (piezo, amplitude): #left_samples, right_samples, left_samples1, ri
     for x in range(len(piezo)):
         if abs(piezo[x]) >= amplitude:
             return x
-    return False    
+    return False
 
 def detect_tap_lr() :
     global lrdone
     global lrcounter
     global a
-    
+
     lhit = False
     ltime = 0.0
     rhit = False
     rtime = 0.0
 
     if lrdone==False:
-        
+
         for x in range(len(left_samples)):
             if abs(left_samples[x]) >= 500 and ltime == 0.0:
                 ltime = x/RATE
@@ -65,8 +65,8 @@ def detect_tap_lr() :
             if abs(right_samples[x]) >= 500:
                 rhit = True
                 break
-        
-            
+
+
         if rhit==True and lhit==True:
                 list = [ltime, rtime]
                 if list.index(min(list)) == 0 :
@@ -79,10 +79,10 @@ def detect_tap_lr() :
                     location=23201.85615*ltime2+14.80046404
                 lrdone=True
                 lrcounter=0
-                
+
                 print(ltime2, rtime2, location)
                 print("good\n")
-                
+
 ##                with open('leftsamples.txt','ab') as f:
 ##                    np.savetxt(f, left_samples, fmt='%5d', delimiter=',')
 ##                with open('rightsamples.txt','ab') as f:
@@ -98,7 +98,7 @@ def detect_tap_ud() :
     global udcounter
     global uddone
     global b
-    
+
     lhit = False
     ltime = 0.0
     rhit = False
@@ -118,7 +118,7 @@ def detect_tap_ud() :
             if abs(right_samples1[x]) >= 1000:
                 rhit = True
                 break
-            
+
         if lhit==True and rhit==True:
                 list = [ltime, rtime]
                 if list.index(min(list)) == 0 :
@@ -135,7 +135,7 @@ def detect_tap_ud() :
 ##                print(ltime2, rtime2, location1)
 ##                print("good\n")
                 b=location1
-                 
+
     else:
         if udcounter>4:
             uddone=False
@@ -184,7 +184,7 @@ def calcPos():
         if aold!=a:
             print(str(a) + ", " + str(b))
             print("Coordinates: (" + str(xpos) + ", " + str(ypos) + ")")
-        aold=a    
+        aold=a
 
 # start Recording
 stream = audio.open(format=FORMAT,
@@ -211,19 +211,19 @@ stream1.start_stream()
 print ("\n+---------------------------------+")
 print ("| Press Ctrl+C to Break Recording |")
 print ("+---------------------------------+\n")
-if __name__ == "__main__": 
+if __name__ == "__main__":
         t1 = threading.Thread(target=lr)
         t2 = threading.Thread(target=ud)
 ##        t3 = threading.Thread(target=calcPos)
-        
-        t1.start()  
+
+        t1.start()
         t2.start()
 ##        t3.start()
 
         t1.join()
         t2.join()
 ##        t3.join()
-        
+
 
 stream.stop_stream()
 stream.close()
