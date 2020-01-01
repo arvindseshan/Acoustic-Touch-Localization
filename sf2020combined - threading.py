@@ -55,14 +55,14 @@ def detect_tap_lr() :
         for x in range(len(left_samples)):
             if abs(left_samples[x]) >= 500 and ltime == 0.0:
                 ltime = x/RATE
-            if abs(left_samples[x]) >= 500:
+            if abs(left_samples[x]) >= 1000:
                 lhit = True
                 break
 
         for x in range(len(right_samples)):
             if abs(right_samples[x]) >= 500 and rtime == 0.0:
                 rtime = x/RATE
-            if abs(right_samples[x]) >= 500:
+            if abs(right_samples[x]) >= 1000:
                 rhit = True
                 break
 
@@ -213,15 +213,15 @@ print ("| Press Ctrl+C to Break Recording |")
 print ("+---------------------------------+\n")
 if __name__ == "__main__":
         t1 = threading.Thread(target=lr)
-        t2 = threading.Thread(target=ud)
+##        t2 = threading.Thread(target=ud)
 ##        t3 = threading.Thread(target=calcPos)
 
         t1.start()
-        t2.start()
+##        t2.start()
 ##        t3.start()
 
         t1.join()
-        t2.join()
+##        t2.join()
 ##        t3.join()
 
 
