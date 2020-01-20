@@ -454,11 +454,11 @@ def detect_tap_lr() :
                 if list.index(min(list)) == 0 :
                     ltime2=0
                     rtime2=rtime-ltime
-                    location=-23596.03587*rtime2+15.28315243
+                    location=-22248.5249228*rtime2+26.4164968363
                 if list.index(min(list)) == 1 :
                     ltime2=ltime-rtime
                     rtime2=0
-                    location=23201.85615*ltime2+14.80046404
+                    location=22557.1202678*ltime2+26.6288158189
                 hit = False
                 hit1 = False
                 done=True
